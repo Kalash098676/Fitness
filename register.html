@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+       background: url(https://i.pinimg.com/originals/36/a0/41/36a04197a7be4e694d9f35389287841c.gif);
+        background-repeat: no-repeat;
+      background-size: cover;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    .container {
+     background-color:rgba(255, 255,255, 0); 
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 320px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    input {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background: #007bff;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #92c638;
+    }
+    a {
+      display: inline-block;
+      margin-top: 15px;
+      color: #007bff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      background-color: #333;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 50px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform: translateY(-20px);
+    }
+    .toast.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .toast-icon {
+      background: #4696dc;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 10px;
+      font-size: 16px;
+    }
+    .toast-message {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form id="registerForm">
+      <h2>Sign Up</h2>
+      <input type="text" id="name" placeholder="Name" required />
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+      <button type="submit">Submit</button>
+      <a href="login.html" style="color: white;">Go to Login</a>
+    </form>
+  </div>
+  <div id="toast" class="toast">
+    <div class="toast-icon">✔️</div>
+    <div id="toast-message" class="toast-message"></div>
+  </div>
+
+  <script>
+    if (localStorage.getItem("user")) {
+      window.location.href = "home.html";
+    }
+    function showToast(message, icon = "✔️") {
+      const toast = document.getElementById("toast");
+      const msg = document.getElementById("toast-message");
+      const iconEl = document.querySelector(".toast-icon");
+
+      msg.textContent = message;
+      iconEl.textContent = icon;
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3000);
+    }
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (password !== confirmPassword) {
+        showToast("Passwords do not match!", "❌");
+        return;
+      }
+
+      if (localStorage.getItem(username)) {
+        showToast("Username already exists!", "⚠️");
+        return;
+      }
+
+      const user = { name, username, password };
+      localStorage.setItem(username, JSON.stringify(user));
+      document.getElementById("registerForm").reset();
+
+      showToast("Registration successful!", "🎉");
+      setTimeout(() => window.location.href = "login.html", 1500);
+    });
+  </script>
+</body>
+</html>

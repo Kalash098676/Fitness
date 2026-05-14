@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Powered Fitness Website</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .social-links a {
+            color: #f9f5f8;
+            font-size: 24px;
+            margin-right: 15px;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-links a:hover {
+            color: #0b0e12;
+        }
+        a{
+          text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <h1 class="logo">
+          <i class="fas fa-dumbbell"></i>FitNut</h1>
+        <div class="right-nav">
+            <div class="select-box">
+                <div class="select-heading"> <span id="selected-text">Workouts</span> <img src="downarrow.svg" alt="dropdown arrow" class="arrow" /> </div>
+                <div class="options">
+                    <a href="Mixwrkout.html" class="option"> Workout</a>
+
+                    <a href="chest.html" class="option">
+                                        Chest Workout</a>
+                    <a href="leg.html" class="option">Legs Workout</a>
+                    <a href="shoulder.html" class="option">Shoulder Workout</a>
+                    <a href="BT.html" class="option">Biceps and triceps</a>
+
+                    <a href="back.html" class="option">Back Workout</a>
+                    <a href="yoga.html" class="option">Yoga</a>
+                </div>
+            </div>
+            <!-- Chatbot icon --><img src="chatbot.svg" alt="chatbot" id="chatbot-toggle" title="Open Chatbot" />
+            <!-- <button><a href="login.html" class="Login-btn" [disabled]="true">Login</a></button> -->
+            <button onclick="logout()"><a href="login.html" class="Login-btn" style="text-decoration: none;">LogIn</a></button>
+            <style>
+              .Login-btn {
+      background: white;
+      color: #205486;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .Login-btn:hover {
+      background: #003f73;
+      color: white;
+    }
+
+    /* Toast Message */
+    .toast {
+      visibility: hidden;
+      min-width: 250px;
+      background: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 30px;
+      padding: 12px;
+      position: fixed;
+      z-index: 1000;
+      left: 50%;
+      bottom: 30px;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.5s, bottom 0.5s;
+    }
+
+    .toast.show {
+      visibility: visible;
+      opacity: 1;
+      bottom: 50px;
+    }
+  </style></div>
+    </nav>
+   
+    <div class="chat-box" id="chat-box-wrapper">
+        <div class="chat-header">
+            <h3>Fitness AI Bot</h3> <span id="close-chat" title="Close Chat">✖</span> </div>
+        <div class="chat-container" id="chat-container">
+            <div class="ai-chat-box">
+                <p class="text">Welcome! How can I help you with your fitness goals today?</p>
+            </div>
+        </div>
+        <div class="input-area"> <input type="text" class="prompt" id="user-input" placeholder="Type a message..." autocomplete="off" /> <button id="send-btn" title="Send"> <img src="send.svg" alt="send" /> </button> </div>
+    </div>
+    <div>
+        <section class="best-lives-section">
+            <div class="text-content">
+                <h2>
+                    Helping people live<br> their <span>BEST LIVES</span>
+                </h2>
+                <p>
+                    Health on your mind? We have you covered. With more than 300,000+ successful transformations, FITNUT is leading the health and fitness revolution in the world!
+                </p>
+            </div>
+            <div class="image-showcase">
+  <div class="slider-track">
+    <div class="card"><img src="https://cdn.pixabay.com/photo/2022/04/18/12/13/shamatajofficial-7140335_1280.jpg" alt="featured" style="width:200px; height:auto;"></div>
+    <div class="card"><img src="https://i.pinimg.com/originals/6d/67/93/6d67935203d463683c04a6885dee44be.jpg" alt="progress" style="width:200px; height:auto;"></div>
+    <div class="card"><img src="https://tse3.mm.bing.net/th/id/OIP.ALpVictKxmARlh5X_5vntgHaD-?pid=Api&P=0&h=180" alt="progress" ></div>
+    <div class="card"><img src="https://medlineplus.gov/images/DiabeticDiet_share.jpg" alt="progress"></div>
+    <!-- duplicate for infinite loop -->
+    <div class="card"><img src="https://www.preventivemedicinedaily.com/wp-content/uploads/2024/04/types-of-dietary-supplements-1024x701.webp" alt="featured" ></div>
+    <div class="card"><img src="https://now.tufts.edu/sites/default/files/uploaded-assets/images/2022-08/healthy_food_nutritional_report.jpg" alt="progress" ></div>
+    <div class="card"><img src="https://tse1.mm.bing.net/th/id/OIP._iJiHe8b1vBA6N1xhRwhEgHaE8?pid=Api&P=0&h=180" alt="progress" ></div>
+    <div class="card"><img src="https://tse1.mm.bing.net/th/id/OIP._iJiHe8b1vBA6N1xhRwhEgHaE8?pid=Api&P=0&h=180" alt="progress" ></div>
+  </div>
+  <style>
+.image-showcase {
+  overflow: hidden;
+  position: relative;
+  width: 80%;             
+  margin: 0 auto;         
+  background: #fff;
+  padding: 20px 0;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.slider-track {
+  display: flex;
+  width: calc(180px * 8); 
+  animation: scroll 20s linear infinite;
+}
+
+.card {
+  flex: 0 0 auto;
+  width: 180px;           
+  margin: 0 10px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.card:hover img {
+  transform: scale(1.05);
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } 
+}
+</style>
+</div>
+
+        </section>
+        <div class="content-wrapper">
+            <section class="services">
+                <div class="service-card">
+                    <div class="img-box orange"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKSC1i_ut8JRAUegigkyClvrndfaAyhRKavg&s" alt="Fitness & Nutrition"  style="width: 100%; height: 258px; background-color: white ;"> </div>
+                    <h3>Fitness & Nutrition
+
+                    </h3>
+                    <p>Unlock your dream body with the right diet & workouts</p>
+                    <button class="view-btn" onclick="window.location.href='nutrient.html'">View Coaches</button>
+                </div>
+                <div class="service-card">
+                    <div class="img-box green"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqvz4M08umxJ6DPtlg7UATpPrIpvIPW1Draw&s" alt="Online Personal Training"  style="width: 100%; height: 258px; background-color: rgb(255, 253, 253) ;"> </div>
+                    <h3>Online Personal Training</h3>
+                    <p>1-on-1 online sessions for Yoga, Zumba & more!</p>
+                    <button class="view-btn" onclick="window.location.href='onlinetraning.html'">
+  View Coaches
+</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="img-box pink">
+<img src="https://www.focusphysiotherapy.com/wp-content/uploads/resize_patient-doing-physical-rehabilitation-helped-by-therapists-1-1.webp" 
+alt="Injury Rehabilitation"
+style="width:100%; height:350px; object-fit:cover; border-radius:15px; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                    </div>
+                    <h3>Injury Rehabilitation</h3>
+                    <p>Bid pain goodbye with our expert physiotherapists</p>
+                    <button class="view-btn" onclick="window.location.href='injury.html'">
+    View Coaches
+  </button>
+                </div>
+                <div class="service-card">
+                    <div class="img-box blue">
+                        <img src="https://media.istockphoto.com/id/611767522/photo/adorable-little-boy-and-his-kitten.jpg?s=612x612&w=0&k=20&c=UamgFwzDZw2Nkro0y9iSQtGgfouU5umOfRK7EACAFkI=" alt="FITTR Kids" style="width:100%; height:350px; object-fit:cover; border-radius:15px; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                    </div>
+                    <h3>FITTR Kids</h3>
+                    <p>Gift your kids a healthier, happier future</p>
+                    <button class="view-btn" onclick="window.location.href='kid.html'">
+    View Coaches
+  </button>
+                </div>
+
+                <div class="service-card">
+                    <div class="img-box blue">
+                        <img src="https://hospitalsmagazine.com/wp-content/uploads/2024/03/diabetes-.jpg" alt="Diabetes Management" style="width:100%; height:350px; object-fit:cover; border-radius:15px; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                    </div>
+                    <h3>Diabetes Management</h3>
+                    <p>Manage diabetes & explore reversal under qualified & experienced coaches</p>
+                    <button class="view-btn" onclick="window.location.href='dia.html'">
+    View Coaches
+  </button>
+                </div>
+                <div class="service-card">
+                    <div class="img-box blue">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUBIZTwLtRl33x08FVvF07NJWTlo19p1x87w&s" alt="Diabetes Management" style="width:100%; height:350px; object-fit:cover; border-radius:15px; display:block; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+                    </div>
+                    <h3>Fitness Tracker</h3>
+                    <p>Keep a detailed log of your workouts, including the exercises performed, sets, reps, and weight used.</p>
+                    <button class="view-btn" onclick="window.location.href='tracker.html'">
+    View Coaches
+  </button>
+                </div>
+            </section>
+        </div>
+        <section class="judgment-section">
+            <div class="text-area">
+                <h1>A judgment-free<br>space for everyone</h1>
+            </div>
+            <div class="image-collage">
+                <div class="img-card gray"><img src="https://media.istockphoto.com/id/2027278927/photo/young-athletic-woman-exercising-with-barbell-during-sports-training-in-a-gym.jpg?s=612x612&w=0&k=20&c=ifFL7Mqc8NwTj25PAx4ONy1OOQZvc1S_kVOofsbLgFw=" alt=""></div>
+                <div class="img-card color"><img src="https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=pexels-victorfreitas-841130.jpg&fm=jpg" alt=""></div>
+                <div class="img-card gray"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLgxxCqk55b6VlAx4t3kh-tTaKJUAkaMZtTQ&s" alt=""></div>
+                <div class="img-card color"><img src="https://media.istockphoto.com/id/2027281054/photo/young-sportswoman-doing-side-sit-ups-with-medicine-ball-while-exercising-in-health-club.jpg?s=612x612&w=0&k=20&c=TM8DPYR-2TYdqXVWVRYv_Yr8QaJyCsMFBn8Bo9OViIE=" alt=""></div>
+                <div class="img-card gray">
+                    <img src="https://www.jamesallenphoto.com/uploads/7/8/3/1/78318796/fitness-photography-the-temple-21-2000-px_1_orig.jpg" alt=" "></div>
+                <div class="img-card color "><img src="https://t4.ftcdn.net/jpg/01/79/81/77/360_F_179817756_QzTocli57q9G6a1Oe7kJtoMS5dNMU8cl.jpg " alt=" "></div>
+                <div class="img-card gray "><img src="https://media.post.rvohealth.io/wp-content/uploads/2025/06/woman-working-out-barbell-weight-lifting-at-gym-732x549-thumbnail.jpg " alt=" "></div>
+                <div class="img-card color "><img src="https://media.istockphoto.com/id/2027281054/photo/young-sportswoman-doing-side-sit-ups-with-medicine-ball-while-exercising-in-health-club.jpg?s=612x612&w=0&k=20&c=TM8DPYR-2TYdqXVWVRYv_Yr8QaJyCsMFBn8Bo9OViIE= " alt=" "></div>
+                <div class="img-card gray "><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlQE2CSvaQHm1zEYh6Ha5MSQz411Ip5cPkYw&s " alt=" "></div>
+            </div>
+            <style>
+             .image-collage {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  justify-items: center;
+  align-items: center;
+  margin: 40px auto;
+}
+
+.img-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.img-card:hover {
+  transform: scale(1.05);
+}
+.img-card.gray img {
+  filter: grayscale(100%);
+  opacity: 0.9;
+}
+.image-collage .img-card:nth-child(1) {
+  grid-column: 2;
+  width: 90px;
+  height: 110px;
+}
+.image-collage .img-card:nth-child(2) {
+  grid-column: 3;
+  width: 90px;
+  height: 110px;
+}
+.image-collage .img-card:nth-child(3) {
+  grid-column: 4;
+  width: 90px;
+  height: 110px;
+}
+.image-collage .img-card:nth-child(4) {
+  grid-column: 1;
+  width: 100px;
+  height: 130px;
+}
+.image-collage .img-card:nth-child(5) {
+  grid-column: 2;
+  width: 110px;
+  height: 140px;
+}
+.image-collage .img-card:nth-child(6) {
+  grid-column: 3;
+  width: 120px;
+  height: 150px;
+}
+.image-collage .img-card:nth-child(7) {
+  grid-column: 4;
+  width: 110px;
+  height: 140px;
+}
+.image-collage .img-card:nth-child(8) {
+  grid-column: 5;
+  width: 100px;
+  height: 130px;
+}
+.image-collage .img-card:nth-child(9) {
+  grid-column: 2 / span 2;
+  width: 110px;
+  height: 135px;
+  justify-self: end;
+}
+.image-collage .img-card:nth-child(10) {
+  grid-column: 3 / span 2;
+  width: 110px;
+  height: 135px;
+  justify-self: start;
+}
+
+@media (max-width: 900px) {
+  .image-collage {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .img-card {
+    width: 100px;
+    height: 120px;
+  }
+}
+@media (max-width: 600px) {
+  .image-collage {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+  }
+  .img-card {
+    width: 90px;
+    height: 110px;
+  }
+}
+</style>
+        </section>
+        <section class="health-section ">
+            <h2>Your Health Matters!</h2>
+            <p>
+                FitNut isn’t just another fitness company. It is an extended community of friends that you can always count on. We value your time and money and will make sure we deliver the best possible health, fitness, and nutrition services possible.
+            </p>
+            <p>
+                We’re proud to have helped thousands of clients manage and even reverse their high sugar and would love to do the same for you too! Our online diabetes coaching program is designed to provide you with the knowledge and support you need to manage your
+                diabetes effectively. Whether you have type 1 or type 2 diabetes, our diabetes specialists are here to help you every step of the way.
+            </p>
+            <p>
+                Our diabetes management guidelines and science-backed practices provide you with the best possible diabetes care and support. Our online diabetes coaches have a proven track record of helping people with this lifestyle disease manage their condition effectively
+                and even reverse the condition in specific cases.
+            </p>
+            <p>
+                And why is this solution necessary? Well, diabetes affects you in more ways than you can imagine! Diabetes is a complex medical condition that affects every aspect of your life, and prolonged medication dependence might do more harm than good. Our diabetes
+                specialist will help you learn the science behind diabetic remission and apply it to your life. Learn to manage your blood sugar levels and deal with diabetes symptoms, stress, and comorbidities with FitNut Diabetes Coaching. Once you enrol
+                for FitNut Diabetes Lifestyle Management, your online diabetes consultant will provide you with expert guidance on diabetes nutrition and help you create a balanced diabetic meal plan that works for you. Additionally, our online diabetes
+                coaches can help you work in consultation with a diabetes doctor 
+                near you to incorporate physical activity into your daily routine and address diabetes weight loss and other goals. Our diabetes experts are highly qualified and experienced
+                in online diabetes management. Get to know our diabetes coaches by chatting with them for free and learn more about their experience in helping people with diabetes before you enrol. And if you ever have any questions, shoot us an email
+                on
+                <a href="renew:support@aifitness.com ">renew:support@aifitness.com</a> and we’ll get back to you in a jiffy!
+            </p>
+        </section>
+        <footer>
+            <div class="footer-container ">
+                <div class="footer-col ">
+                    <h3> FITNUT</h3>
+                    <p>Empowering your fitness journey with guidance and smart workout plans.</p>
+                </div>
+                <div class="footer-col ">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="# ">Home</a></li>
+                        <li><a href="# ">Workouts</a></li>
+                        <li><a href="# ">Nutrition</a></li>
+                        <li><a href="# ">Progress Tracker</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col ">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="# ">FAQs</a></li>
+                        <li><a href="# ">Help Center</a></li>
+                        <li><a href="# ">Privacy Policy</a></li>
+                        <li><a href="# ">Terms of Use</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col ">
+                    <h4>Follow Us</h4>
+                    <div class="social-links "> <a href="# " aria-label="Facebook "><i class="fa-brands fa-facebook-f "></i></a> <a href="# " aria-label="Instagram "><i class="fa-brands fa-instagram "></i></a> <a href="# " aria-label="Twitter
+                        "><i class="fa-brands fa-twitter "></i></a>
+                        <a href="https://www.youtube.com/ " aria-label="YouTube "><i class="fa-brands fa-youtube "></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom "> &copy; 2025 AI Powered Fitness Website. All rights reserved. </div>
+        </footer>
+        <script >
+const selectHeading = document.querySelector(".select-heading");
+const arrow = document.querySelector(".select-heading img");
+const options = document.querySelector(".options");
+const optionItems = document.querySelectorAll(".option");
+const selectedText = document.querySelector("#selected-text");
+selectHeading.addEventListener("click", () => {
+    options.classList.toggle("active-options");
+    arrow.classList.toggle("rotate");
+});
+optionItems.forEach((item) => {
+    item.addEventListener("click", () => {
+        selectedText.innerText = item.innerText.trim();
+        if (item.innerText.trim().toLowerCase() === "workout") {
+            options.classList.add("active-options");
+            arrow.classList.add("rotate");
+        } else {
+            options.classList.remove("active-options");
+            arrow.classList.remove("rotate");
+        }
+    });
+});
+document.addEventListener("click", (e) => {
+    if (!selectHeading.contains(e.target) && !options.contains(e.target)) {
+        options.classList.remove("active-options");
+        arrow.classList.remove("rotate");
+    }
+});
+const chatbotToggle = document.getElementById("chatbot-toggle");
+const chatBoxWrapper = document.getElementById("chat-box-wrapper");
+const closeChat = document.getElementById("close-chat");
+const chatContainer = document.getElementById("chat-container");
+const prompt = document.querySelector(".prompt");
+const chatbtn = document.getElementById("send-btn");
+// Gemini API URL (Replace with your own API key securely....!)
+const Api_url =
+    "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyBVEW1GyEWrfRme6pkGCgUpmSzBa7PpuwE";
+chatbotToggle.addEventListener("click", () => {
+    chatBoxWrapper.style.display = "flex";
+    prompt.focus();
+});
+closeChat.addEventListener("click", () => {
+    chatBoxWrapper.style.display = "none";
+});
+function createChatBox(html, className) {
+    const div = document.createElement("div");
+    div.classList.add(className);
+    div.innerHTML = html;
+    return div;
+}
+function scrollToBottom() {
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+function showLoading() {
+    const loadingBox = createChatBox(
+        '<p class="text loading">Typing...</p>',
+        "ai-chat-box"
+    );
+    chatContainer.appendChild(loadingBox);
+    scrollToBottom();
+    return loadingBox;
+}
+// Fetch AI response from Gemini API
+async function generateAIResponse(userMessage, loadingBox) {
+    try {
+        const response = await fetch(Api_url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                contents: [{
+                    role: "user",
+
+                    parts: [{ text: userMessage }],
+                }],
+            }),
+        });
+
+        const data = await response.json();
+       
+       
+        const apiResponse =
+            (data &&
+                data.candidates &&
+                data.candidates[0] &&
+                data.candidates[0].content &&
+                data.candidates[0].content.parts &&
+                data.candidates[0].content.parts[0] &&
+                data.candidates[0].content.parts[0].text &&
+                data.candidates[0].content.parts[0].text.trim()) ||
+            "Sorry, I couldn’t understand that.";
+        loadingBox.remove();
+        const aiHtml = `<p class="text"></p>`;
+        const aiChatBox = createChatBox(aiHtml, "ai-chat-box");
+        aiChatBox.querySelector(".text").innerText = apiResponse;
+        chatContainer.appendChild(aiChatBox);
+        scrollToBottom();
+    } catch (error) {
+        console.error("Error:", error);
+        loadingBox.querySelector(".text").innerText =
+            "Error fetching response from AI.";
+    }
+}
+// Handle send message
+function sendMessage() {
+    const userMessage = prompt.value.trim();
+    if (!userMessage) return;
+    // Create user chat box
+    const userHtml = `<p class="text"></p>`;
+    const userChatBox = createChatBox(userHtml, "user-chat-box");
+    userChatBox.querySelector(".text").innerText = userMessage;
+    chatContainer.appendChild(userChatBox);
+    prompt.value = "";
+    scrollToBottom();
+    // Show loading + get AI reply
+    const loadingBox = showLoading();
+    generateAIResponse(userMessage, loadingBox);
+}
+function logout() {
+  sessionStorage.removeItem("user");
+  showToast("Logged out successfully!", "👋");
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 15);
+}
+// Send message on button click
+chatbtn.addEventListener("click", sendMessage);
+// Send message on Enter key press
+prompt.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        sendMessage();
+    }
+});
+document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll('.img-card');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                cards.forEach((card, i) => {
+                    setTimeout(() => card.classList.add('show'), i * 200);
+                });
+                observer.disconnect();
+            }
+        });
+    }, { threshold: 0.2 });
+    observer.observe(document.querySelector('.judgment-section'));
+});
+        </script>
+</body>
